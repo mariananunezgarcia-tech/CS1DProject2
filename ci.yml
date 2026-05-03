@@ -1,0 +1,25 @@
+name: Qt CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Qt + build tools
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential qtbase5-dev qt5-qmake qtbase5-dev-tools
+
+      - name: Build project
+        run: |
+          qmake *.pro
+          make -j$(nproc)
