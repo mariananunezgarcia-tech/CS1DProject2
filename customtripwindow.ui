@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CustomTripWindow</class>
+ <widget class="QMainWindow" name="CustomTripWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>343</width>
+    <height>536</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QComboBox" name="selectStartingCollegeDropdownCT">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>191</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confirmButtonCT">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>80</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Confirm</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="subtitle2CT">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>140</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select Colleges to Visit</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startTripButtonCT">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>420</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start Trip</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>311</width>
+      <height>241</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButtCT">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>460</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="subtitle1CT">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select a Starting College</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="titleCT">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Plan a Custom Tour</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>343</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>startTripButtonCT</sender>
+   <signal>clicked()</signal>
+   <receiver>CustomTripWindow</receiver>
+   <slot>startTripClickedCT()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>167</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>startTripClickedCT()</slot>
+ </slots>
+</ui>

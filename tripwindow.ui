@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tripWindow</class>
+ <widget class="QDialog" name="tripWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>939</width>
+    <height>590</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="buttNextSum">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>470</y>
+     <width>161</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>See Summary</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelNextCol">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>340</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Next College:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelDistNext">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>380</y>
+     <width>181</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Distance to Next College:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelSouvPurc">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>151</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Souvenirs Purchased: </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelSouvCost">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>250</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Souvenirs Cost: </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelCurrCol">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Current College:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelDistTrav">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Distance Traveled: </string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="souvDisplay">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>320</y>
+     <width>471</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelCheckAll">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>290</y>
+     <width>461</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Perpetua Titling MT</family>
+     <pointsize>8</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Check All the Souvenirs that you want: </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelBuySouv">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>540</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Perpetua Titling MT</family>
+     <pointsize>8</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Hit Buy to purchase your souvenirs:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="buyButt">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>540</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Buy</string>
+   </property>
+  </widget>
+  <widget class="QListView" name="collegeDisplay">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>20</y>
+     <width>471</width>
+     <height>271</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineCurrColl">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>40</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineDistTrav">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>70</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineNextColl">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>340</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineDistNext">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>380</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineSouvPurc">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>230</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineSouvCost">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>260</y>
+     <width>231</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

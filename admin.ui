@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Admin</class>
+ <widget class="QDialog" name="Admin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="ColMod">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>160</y>
+     <width>81</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Modify</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="SuvMod">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>190</y>
+     <width>81</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Modify</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BackButt">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>150</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Modify Colleges:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>180</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Modify Souvenirs:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>10</y>
+     <width>201</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Showcard Gothic</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Plain</enum>
+   </property>
+   <property name="text">
+    <string>   WELCOME ADMIN!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>120</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>WHAT DO YOU WANT TO CHANGE??</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
