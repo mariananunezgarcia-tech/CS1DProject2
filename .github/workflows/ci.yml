@@ -11,15 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Qt + build tools
+      - name: Install Qt
         run: |
           sudo apt update
           sudo apt install -y build-essential qtbase5-dev qt5-qmake qtbase5-dev-tools
 
-      - name: Build project
+      - name: Find and build project
         run: |
-          qmake *.pro
+          qmake $(find . -name "*.pro")
           make -j$(nproc)
