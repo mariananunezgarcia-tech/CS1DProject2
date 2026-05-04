@@ -1,2 +1,44 @@
-.qtcreator/
+# =========================
+# Qt build artifacts
+# =========================
+build/
+*/build/
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+
+# Qt generated files
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+
+# Qt Creator user files
 *.pro.user
+*.pro.user.*
+*.autosave
+.qtcreator/
+CMakeFiles/
+CMakeCache.txt
+
+# =========================
+# Build folders (general)
+# =========================
+Debug/
+Release/
+debug/
+release/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs / temp
+# =========================
+*.log
+*.tmp
