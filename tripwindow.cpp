@@ -16,6 +16,7 @@
 #include <QHeaderView>
 #include <QAbstractItemView>
 #include <QIntValidator>
+#include <QDebug>
 
 #include <QSqlDatabase>
 #include <QSqlError>
