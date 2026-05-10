@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ensureDbOpen();
     setupDistanceUi();
-    populateSouvenirTeamCombo();
+    populateTeamCombo();
     populateStartingStadiumCombo();
 
     m_distanceModel->setQuery("SELECT '' AS col1, '' AS col2 WHERE 1=0", m_db);
@@ -233,6 +233,8 @@ void MainWindow::populateStartingStadiumCombo()
         m_fromStadiumCombo->setCurrentIndex(idx);
 }
 
+
+
 // ------------------------------------------------------------
 // Distance summary list
 // ------------------------------------------------------------
@@ -426,13 +428,16 @@ void MainWindow::on_pushButton_clicked()
 // Create the Dropdown List With all 30 teams
 // ------------------------------------------------------------
 
-void MainWindow::populateSouvenirTeamCombo()
+void MainWindow::populateTeamCombo()
 {
-    if (!ui->dropdownSouvenirPreview)
+    if (!ui->dropdownSouvenirPreview || !ui->dropdownInformation)
         return;
 
     ui->dropdownSouvenirPreview->clear();
+    ui->dropdownInformation->clear();
+
     ui->dropdownSouvenirPreview->addItem("Select an MLB Team");
+    ui->dropdownInformation->addItem("Select an MLB Team");
 
     if (!m_db.isOpen() && !ensureDbOpen())
         return;
@@ -458,8 +463,12 @@ void MainWindow::populateSouvenirTeamCombo()
     while (q.next())
     {
         const QString Team = q.value(0).toString().trimmed();
+
         if (!Team.isEmpty())
+        {
             ui->dropdownSouvenirPreview->addItem(Team);
+            ui->dropdownInformation->addItem(Team);
+        }
     }
 }
 
@@ -493,7 +502,7 @@ void MainWindow::loadClosestCenterField()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -542,7 +551,7 @@ void MainWindow::sortByName()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -590,7 +599,7 @@ void MainWindow::sortByStadium()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -639,7 +648,7 @@ void MainWindow::displayALTeams()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -689,7 +698,7 @@ void MainWindow::displayNLTeams()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -737,7 +746,7 @@ void MainWindow::sortByTopology()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -786,7 +795,7 @@ void MainWindow::sortByOpenRoof()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -834,7 +843,7 @@ void MainWindow::displayAllInformation()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -890,7 +899,7 @@ void MainWindow::sortByNewestOpened()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+     m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -940,7 +949,7 @@ void MainWindow::sortBySmallestCapacity()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -990,7 +999,7 @@ void MainWindow::loadFurthestCenterField()
         return;
     }
 
-    m_distanceModel->setQuery(query);
+    m_distanceModel->setQuery(std::move(query));
 
     if (m_distanceModel->lastError().isValid())
     {
@@ -1020,3 +1029,67 @@ void MainWindow::on_buttonSpecAlgorithms_clicked()
     win->show();
     this->close();
 }
+
+
+// ------------------------------------------------------------
+// Display Info of One team
+// ------------------------------------------------------------
+void MainWindow::infoDropdown(const QString &team)
+{
+    if (!m_distanceTable || !m_distanceModel)
+        return;
+    if (!m_db.isOpen() && !ensureDbOpen())
+        return;
+
+    QSqlQuery query(m_db);
+
+    query.prepare(R"(
+    SELECT *
+    FROM MLBInformation
+    WHERE "Team name" = :team;
+    )");
+
+    query.bindValue(":team", team);
+
+    query.exec();
+
+    m_distanceModel->setQuery(std::move(query));
+
+    if (m_distanceModel->lastError().isValid())
+    {
+        QMessageBox::critical(this, "Model Error",
+                              m_distanceModel->lastError().text());
+        return;
+    }
+
+    // Set headers for UI table
+    m_distanceModel->setHeaderData(0, Qt::Horizontal, "Team Name");
+    m_distanceModel->setHeaderData(1, Qt::Horizontal, "Stadium Name");
+    m_distanceModel->setHeaderData(2, Qt::Horizontal, "Seating Capacity");
+    m_distanceModel->setHeaderData(3, Qt::Horizontal, "Location");
+    m_distanceModel->setHeaderData(4, Qt::Horizontal, "Playing Surface");
+    m_distanceModel->setHeaderData(5, Qt::Horizontal, "League");
+    m_distanceModel->setHeaderData(6, Qt::Horizontal, "Date Opened");
+    m_distanceModel->setHeaderData(7, Qt::Horizontal, "Distance to Center Field");
+    m_distanceModel->setHeaderData(8, Qt::Horizontal, "Ballpark Typology");
+    m_distanceModel->setHeaderData(9, Qt::Horizontal, "Roof Type");
+
+    resizeDistanceTableColumns();
+}
+
+void MainWindow::on_buttonInfoSubmit_clicked()
+{
+    const QString Team = ui->dropdownInformation->currentText().trimmed();
+
+    if (Team.isEmpty() ||
+        Team.compare("Select an MLB Team", Qt::CaseInsensitive) == 0)
+    {
+        m_distanceModel->setQuery("SELECT '' AS col1, '' AS col2 WHERE 1=0", m_db);
+        m_distanceModel->setHeaderData(0, Qt::Horizontal, "");
+        m_distanceModel->setHeaderData(1, Qt::Horizontal, "");
+        return;
+    }
+
+    infoDropdown(Team);
+}
+

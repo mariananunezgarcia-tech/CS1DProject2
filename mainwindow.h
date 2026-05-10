@@ -42,6 +42,8 @@ private slots:
     void on_FurthestCenterField_clicked();
     void on_buttonSpecAlgorithms_clicked();
 
+    void on_buttonInfoSubmit_clicked();
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
@@ -50,7 +52,7 @@ private:
     QSqlDatabase m_db;
 
     bool ensureDbOpen();
-    void populateSouvenirTeamCombo();
+    void populateTeamCombo();
     void setupDistanceUi();
     void populateStartingStadiumCombo();
     void loadDistancesForTeam(const QString &fromStadium);
@@ -67,6 +69,7 @@ private:
     void loadClosestCenterField();
     void loadFurthestCenterField();
     void displayAllInformation();
+    void infoDropdown(const QString &team);
 
 
 private:

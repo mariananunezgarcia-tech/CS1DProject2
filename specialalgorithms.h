@@ -28,6 +28,8 @@ private slots:
     void on_buttonBack_clicked();
     void on_buttonDFS_clicked();
 
+    void on_buttonMST_clicked();
+
 private:
     struct DfsEdge
     {

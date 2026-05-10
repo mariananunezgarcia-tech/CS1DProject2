@@ -321,6 +321,7 @@ DIST          = college_tour.sqlite \
 		../Work_Space1/6.10.2/macos/mkspecs/features/qt_config.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/macx-clang/qmake.conf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../Work_Space1/6.10.2/macos/mkspecs/features/exclusive_builds.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/mac/sdk.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/toolchain.prf \
@@ -384,7 +385,7 @@ TARGET        = Baseball.app/Contents/MacOS/Baseball
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 26.2
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/ryanyassini/Desktop/Implemented BFS/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -615,6 +616,7 @@ Makefile: Baseball.pro ../Work_Space1/6.10.2/macos/mkspecs/macx-clang/qmake.conf
 		../Work_Space1/6.10.2/macos/mkspecs/features/qt_config.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/macx-clang/qmake.conf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../Work_Space1/6.10.2/macos/mkspecs/features/exclusive_builds.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/mac/sdk.prf \
 		../Work_Space1/6.10.2/macos/mkspecs/features/toolchain.prf \
@@ -869,6 +871,7 @@ Makefile: Baseball.pro ../Work_Space1/6.10.2/macos/mkspecs/macx-clang/qmake.conf
 ../Work_Space1/6.10.2/macos/mkspecs/features/qt_config.prf:
 ../Work_Space1/6.10.2/macos/mkspecs/macx-clang/qmake.conf:
 ../Work_Space1/6.10.2/macos/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../Work_Space1/6.10.2/macos/mkspecs/features/exclusive_builds.prf:
 ../Work_Space1/6.10.2/macos/mkspecs/features/mac/sdk.prf:
 ../Work_Space1/6.10.2/macos/mkspecs/features/toolchain.prf:
@@ -943,6 +946,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r Baseball.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1505,6 +1509,8 @@ tripwindow.o: tripwindow.cpp tripwindow.h \
 		../Work_Space1/6.10.2/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
 		../Work_Space1/6.10.2/macos/lib/QtGui.framework/Headers/QIntValidator \
 		../Work_Space1/6.10.2/macos/lib/QtGui.framework/Headers/qvalidator.h \
+		../Work_Space1/6.10.2/macos/lib/QtCore.framework/Headers/QDebug \
+		../Work_Space1/6.10.2/macos/lib/QtCore.framework/Headers/qdebug.h \
 		../Work_Space1/6.10.2/macos/lib/QtSql.framework/Headers/QSqlDatabase \
 		../Work_Space1/6.10.2/macos/lib/QtSql.framework/Headers/qsqldatabase.h \
 		../Work_Space1/6.10.2/macos/lib/QtSql.framework/Headers/QSqlError \

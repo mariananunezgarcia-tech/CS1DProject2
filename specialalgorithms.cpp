@@ -349,35 +349,179 @@ void SearchAlgorithms::showResultsInListView(const QString &text)
 }
 
 
+/*
+  This is the MST Code for Kruskal’s MST algorithm
+*/
+
+struct Edge
+{
+    int from;
+    int to;
+    int distance;
+};
+
+class DisjointSet
+{
+private:
+    QVector<int> parent;
+    QVector<int> rank;
+
+public:
+    DisjointSet(int size)
+    {
+        parent.resize(size);
+        rank.resize(size, 0);
+
+        for (int i = 0; i < size; i++)
+            parent[i] = i;
+    }
+
+    int find(int x)
+    {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+
+        return parent[x];
+    }
+
+    bool unite(int a, int b)
+    {
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if (rootA == rootB)
+            return false;
+
+        if (rank[rootA] < rank[rootB])
+            parent[rootA] = rootB;
+        else if (rank[rootA] > rank[rootB])
+            parent[rootB] = rootA;
+        else
+        {
+            parent[rootB] = rootA;
+            rank[rootA]++;
+        }
+
+        return true;
+    }
+};
+
+void SearchAlgorithms::on_buttonMST_clicked()
+{
+    if (!m_db.isOpen() && !ensureDbOpen())
+        return;
+
+
+    QVector<Edge> edges;
+    QVector<QString> stadiumNames;
+    QMap<QString, int> stadiumIndex;
+
+    auto getStadiumId = [&](QString name) -> int
+    {
+        name = name.trimmed();
+
+        if (stadiumIndex.find(name) == stadiumIndex.end())
+        {
+            int id = stadiumNames.size();
+            stadiumIndex[name] = id;
+            stadiumNames.push_back(name);
+        }
+
+        return stadiumIndex[name];
+    };
+
+    QSqlQuery query(m_db);
+
+    query.prepare(R"(
+        SELECT "Beginning Stadium", "Ending Stadium", "Distance"
+        FROM MLBDistances
+    )");
+
+    if (!query.exec())
+    {
+        QMessageBox::critical(this, "Query Error",
+                              "MST query failed:\n" + query.lastError().text());
+        return;
+    }
+
+    while (query.next())
+    {
+        QString from = query.value(0).toString().trimmed();
+        QString to = query.value(1).toString().trimmed();
+        int dist = query.value(2).toInt();
+
+        int fromId = getStadiumId(from);
+        int toId = getStadiumId(to);
+
+        edges.push_back({ fromId, toId, dist });
+    }
+
+    std::sort(edges.begin(), edges.end(), [](Edge a, Edge b)
+              {
+                  return a.distance < b.distance;
+              });
+
+    DisjointSet ds(stadiumNames.size());
+
+    QVector<Edge> mst;
+    int totalDistance = 0;
+
+    for (Edge e : edges)
+    {
+        if (ds.unite(e.from, e.to))
+        {
+            mst.push_back(e);
+            totalDistance += e.distance;
+        }
+    }
+
+    QStringList lines;
+
+    QString output;
+    output = "MST \n";
+
+    for(int i = 0; i < mst.size(); ++i)
+    {
+        output += stadiumNames[mst[i].from] + " --> " + stadiumNames[mst[i].to] + " : " + QString::number(mst[i].distance) + "\n";
+    }
+    output += "\nTotal Distance across MST: " + QString::number(totalDistance);
+
+    showResultsInListView(output);
+}
+
 QString SearchAlgorithms::runDfsFromOracle()
 {
+    if (!m_db.isOpen() && !ensureDbOpen())
+        return "Database is not open.";
+
     QHash<QString, QVector<DfsEdge>> graph;
 
     QSqlQuery query(m_db);
     query.prepare(R"(
-        SELECT "Beginning Stadium", "Ending Stadium", "Distance"
+        SELECT TRIM("Beginning Stadium"),
+               TRIM("Ending Stadium"),
+               "Distance"
         FROM MLBDistances
         WHERE TRIM("Beginning Stadium") <> ''
           AND TRIM("Ending Stadium") <> ''
     )");
 
     if (!query.exec())
-        return "DFS query failed:\n" + query.lastError().text();
+        return "Could not load DFS graph:\n" + query.lastError().text();
 
     while (query.next())
     {
-        const QString from = query.value(0).toString().trimmed();
-        const QString to   = query.value(1).toString().trimmed();
-        const int miles    = query.value(2).toInt();
+        QString from = query.value(0).toString().trimmed();
+        QString to = query.value(1).toString().trimmed();
+        int miles = query.value(2).toInt();
 
-        if (from.isEmpty() || to.isEmpty())
+        if (from.isEmpty() || to.isEmpty() || miles <= 0)
             continue;
 
         graph[from].push_back({to, miles});
-        graph[to].push_back({from, miles});
+        graph[to].push_back({from, miles}); // undirected
     }
 
-    // sort neighbors by shortest distance
     for (auto it = graph.begin(); it != graph.end(); ++it)
     {
         std::sort(it.value().begin(), it.value().end(),
@@ -392,40 +536,75 @@ QString SearchAlgorithms::runDfsFromOracle()
     const QString start = "Oracle Park";
 
     if (!graph.contains(start))
-        return "Oracle Park not found in graph.";
+        return "Oracle Park was not found in the database.";
 
     QSet<QString> visited;
+    QSet<QString> printedEdges;
     QStringList order;
+    QStringList discoveryEdges;
+    QStringList backEdges;
     int totalMiles = 0;
 
-    QString output;
-
-    output += "Discovery Edges: \n\n";
-
-    std::function<void(const QString&)> dfs = [&](const QString &current)
+    std::function<void(const QString&, const QString&)> dfs =
+        [&](const QString &current, const QString &parent)
     {
         visited.insert(current);
         order << current;
 
         for (const DfsEdge &edge : graph[current])
         {
+            QString next = edge.dest;
 
-            if (!visited.contains(edge.dest))
+            QString key1 = current + "->" + next;
+            QString key2 = next + "->" + current;
+
+            if (!visited.contains(next))
             {
-                output += current + " -> " + edge.dest +
-                          " (" + QString::number(edge.miles) + " miles)\n";
+                discoveryEdges << current + " -> " + next +
+                                      " (" + QString::number(edge.miles) + " miles)";
+
+                printedEdges.insert(key1);
+                printedEdges.insert(key2);
 
                 totalMiles += edge.miles;
-                dfs(edge.dest);
-            }
 
+                dfs(next, current);
+            }
+            else if (next != parent && !printedEdges.contains(key1))
+            {
+                backEdges << current + " -> " + next +
+                                 " (" + QString::number(edge.miles) + " miles)";
+
+                printedEdges.insert(key1);
+                printedEdges.insert(key2);
+            }
         }
     };
 
-    dfs(start);
+    dfs(start, "");
 
+    QString output;
+    output += "DFS starting at Oracle Park\n\n";
 
-    output += "\nTotal mileage: " + QString::number(totalMiles);
+    output += "Traversal order:\n";
+    for (int i = 0; i < order.size(); ++i)
+        output += QString("%1. %2\n").arg(QString::number(i + 1), order[i]);
+
+    output += "\nDiscovery edges:\n";
+    for (const QString &edge : discoveryEdges)
+        output += edge + "\n";
+
+    output += "\nCross edges:\n";
+    if (backEdges.isEmpty())
+        output += "None\n";
+    else
+    {
+        for (const QString &edge : backEdges)
+            output += edge + "\n";
+    }
+
+    output += "\nTotal distance on discovery edges: " +
+              QString::number(totalMiles);
 
     return output;
 }
