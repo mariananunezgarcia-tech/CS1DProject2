@@ -1,23 +1,52 @@
+# -----------------------
 # Build folders
+# -----------------------
 build/
 */build/
+cmake-build-*/
+debug/
+release/
 
-# Qt Creator files
+# -----------------------
+# Qt Creator
+# -----------------------
 *.pro.user
 *.pro.user.*
 *.autosave
+*.qmlproject.user
+*.qmlproject.user.*
 
-# Compiled objects
-*.o
+# -----------------------
+# Qt generated files (IMPORTANT)
+# -----------------------
+moc_*
+ui_*
+qrc_*
+Makefile*
 *.obj
+*.o
 
+# -----------------------
 # Executables
+# -----------------------
 *.exe
 *.out
 *.app
 
-# Mac
-.DS_Store
+# -----------------------
+# Databases (if local file)
+# -----------------------
+*.sqlite
+*.db
 
-# Windows
+# -----------------------
+# OS files
+# -----------------------
+.DS_Store
 Thumbs.db
+
+# -----------------------
+# IDEs
+# -----------------------
+*.idea/
+.vscode/
