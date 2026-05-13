@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchAlgorithms</class>
+ <widget class="QWidget" name="SearchAlgorithms">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>960</width>
+    <height>570</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #c1e1ec;
+    border: 2px solid #fdbe57;</string>
+  </property>
+  <widget class="QComboBox" name="comboSelStadium">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>110</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox {
+    background-color: #add8e6;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 4px 4px;
+}
+
+QListView {
+    background-color: #ffffff;
+    alternate-background-color: #ffffff;
+    color: black;
+    border: 2px solid #fdbe57;
+    border-radius: 2px;
+    padding: 4px 4px;
+}
+
+QListView::item:hover { background: #86c5da; }
+QComboBox:hover { background-color: #86c5da }</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="buttonBack">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>340</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #add8e6;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+QDialog {
+    background-color: #c1e1ec;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 4px 4px;
+}
+
+QPushButton:hover { background-color: #86c5da; }
+QPushButton:pressed { background-color: #d4ebf2; }</string>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelTitle">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>25</y>
+     <width>200</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>15</pointsize>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #add8e6;
+    border: 2px solid #fdbe57;</string>
+   </property>
+   <property name="text">
+    <string>Special Algorithms</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelSelStadium">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>220</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #add8e6;
+    border: 2px solid #fdbe57;</string>
+   </property>
+   <property name="text">
+    <string>Select the stadium you want to start at:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelSelAlg">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>160</y>
+     <width>230</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #add8e6;
+    border: 2px solid #fdbe57;</string>
+   </property>
+   <property name="text">
+    <string>Select the algorithm you want to execute:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="buttonMST">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>195</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #add8e6;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+QPushButton:hover { background-color: #86c5da; }
+QPushButton:pressed { background-color: #d4ebf2; }</string>
+   </property>
+   <property name="text">
+    <string>Minimum Spanning Tree</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="buttonDFS">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>230</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #add8e6;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+QDialog {
+    background-color: #c1e1ec;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 4px 4px;
+}
+
+QPushButton:hover { background-color: #86c5da; }
+QPushButton:pressed { background-color: #d4ebf2; }</string>
+   </property>
+   <property name="text">
+    <string>Depth-First Search</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="buttonBFS">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>265</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: #add8e6;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 10px;
+    padding: 4px 4px;
+}
+
+QDialog {
+    background-color: #c1e1ec;
+    color: white;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 4px 4px;
+}
+
+QPushButton:hover { background-color: #86c5da; }
+QPushButton:pressed { background-color: #d4ebf2; }</string>
+   </property>
+   <property name="text">
+    <string>Breadth-First Search</string>
+   </property>
+  </widget>
+  <widget class="QListView" name="listViewResults">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>10</y>
+     <width>700</width>
+     <height>550</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListView {
+    background-color: #ffffff;
+    alternate-background-color: #ffffff;
+    color: black;
+    border: 2px solid #fdbe57;
+    border-radius: 2px;
+    padding: 4px 4px;
+}
+
+QTableView {
+    background-color: #ffffff;
+    alternate-background-color: #ffffff;
+    color: black;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 2px 2px;
+}
+QTableView::item:hover { background: #86c5da; }
+QListView::item:hover { background: #86c5da; }</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

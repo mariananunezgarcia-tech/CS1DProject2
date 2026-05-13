@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-=======
-/**
- * @file summarywindow.cpp
- * @brief Implements the summaryWindow class.
- *
- * This window displays the final trip summary including
- * total miles traveled, souvenirs purchased, and a breakdown
- * of campuses visited and purchases made at each campus.
- */
-
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 #include "summarywindow.h"
 #include "ui_summarywindow.h"
 
@@ -20,14 +8,6 @@
 #include <QStringListModel>
 #include <QMap>
 
-<<<<<<< HEAD
-=======
-/*
- * Function: summaryWindow constructor
- * Purpose : Initializes the summary window and displays
- *           route, distance, and souvenir purchase information.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 summaryWindow::summaryWindow(const std::vector<QString> &route,
                              const std::vector<double> &legs,
                              double totalMiles,
@@ -47,7 +27,6 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
     setReadOnly(m_souvenirCountEdit);
     setReadOnly(m_souvenirCostEdit);
 
-<<<<<<< HEAD
     // ------------------------------------------------------------
     // Total distance
     // ------------------------------------------------------------
@@ -57,11 +36,6 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
     // ------------------------------------------------------------
     // Overall souvenir totals
     // ------------------------------------------------------------
-=======
-    if (m_totalMilesEdit)
-        m_totalMilesEdit->setText(QString::number(totalMiles, 'f', 1));
-
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     int totalSouvenirsPurchased = 0;
     double totalSouvenirCost = 0.0;
 
@@ -77,7 +51,6 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
     if (m_souvenirCostEdit)
         m_souvenirCostEdit->setText(QString("$%1").arg(totalSouvenirCost, 0, 'f', 2));
 
-<<<<<<< HEAD
     // ------------------------------------------------------------
     // Stadiums visited list
     // ------------------------------------------------------------
@@ -85,28 +58,17 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
 
     if (!route.empty())
         stadiumLines << QString("Start: %1").arg(route[0]);
-=======
-    QStringList collegeLines;
-
-    if (!route.empty())
-        collegeLines << QString("Start: %1").arg(route[0]);
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
     for (size_t i = 1; i < route.size(); ++i)
     {
         const double d = (i - 1 < legs.size()) ? legs[i - 1] : 0.0;
 
-<<<<<<< HEAD
         stadiumLines << QString("%1) %2 (+%3 miles)")
-=======
-        collegeLines << QString("%1) %2 (+%3 miles)")
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
                             .arg(static_cast<int>(i))
                             .arg(route[i])
                             .arg(d, 0, 'f', 1);
     }
 
-<<<<<<< HEAD
     m_model = new QStringListModel(stadiumLines, this);
     ui->listStadiums->setModel(m_model);
 
@@ -123,25 +85,11 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
     for (const auto &p : purchases)
     {
         const QString stadium = p.stadium.trimmed();
-=======
-    m_model = new QStringListModel(collegeLines, this);
-    ui->listColleges->setModel(m_model);
-
-    ui->listSouvenirs->clear();
-
-    QMap<QString, QMap<QString, int>> quantityByCollege;
-    QMap<QString, QMap<QString, double>> priceByCollege;
-
-    for (const auto &p : purchases)
-    {
-        const QString college = p.college.trimmed();
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
         const QString souvenirKey =
             QString("%1|||%2")
                 .arg(p.name.trimmed())
                 .arg(QString::number(p.price, 'f', 2));
 
-<<<<<<< HEAD
         quantityByStadium[stadium][souvenirKey] += 1;
         priceByStadium[stadium][souvenirKey] = p.price;
     }
@@ -155,20 +103,6 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
         double stadiumCost = 0.0;
 
         const QMap<QString, int> souvenirMap = quantityByStadium.value(stadium);
-=======
-        quantityByCollege[college][souvenirKey] += 1;
-        priceByCollege[college][souvenirKey] = p.price;
-    }
-
-    for (const QString &college : route)
-    {
-        ui->listSouvenirs->addItem(QString("College: %1").arg(college));
-
-        int collegeCount = 0;
-        double collegeCost = 0.0;
-
-        const QMap<QString, int> souvenirMap = quantityByCollege.value(college);
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
         if (!souvenirMap.isEmpty())
         {
@@ -179,17 +113,10 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
 
                 const QStringList parts = key.split("|||");
                 const QString souvenirName = parts.value(0);
-<<<<<<< HEAD
                 const double price = priceByStadium.value(stadium).value(key, 0.0);
 
                 stadiumCount += quantity;
                 stadiumCost += price * quantity;
-=======
-                const double price = priceByCollege.value(college).value(key, 0.0);
-
-                collegeCount += quantity;
-                collegeCost += price * quantity;
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
                 ui->listSouvenirs->addItem(
                     QString("   Souvenir: %1 | Price: $%2 | Quantity: %3")
@@ -202,41 +129,20 @@ summaryWindow::summaryWindow(const std::vector<QString> &route,
 
         ui->listSouvenirs->addItem(
             QString("   Total at %1: %2 souvenirs purchased | Cost: $%3")
-<<<<<<< HEAD
                 .arg(stadium)
                 .arg(stadiumCount)
                 .arg(stadiumCost, 0, 'f', 2)
-=======
-                .arg(college)
-                .arg(collegeCount)
-                .arg(collegeCost, 0, 'f', 2)
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
             );
 
         ui->listSouvenirs->addItem("");
     }
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: ~summaryWindow
- * Purpose : Cleans up UI resources when the window closes.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 summaryWindow::~summaryWindow()
 {
     delete ui;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: setReadOnly
- * Purpose : Makes a line edit display-only so the user
- *           cannot change the summary values.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void summaryWindow::setReadOnly(QLineEdit *edit)
 {
     if (!edit)
@@ -246,14 +152,6 @@ void summaryWindow::setReadOnly(QLineEdit *edit)
     edit->setFocusPolicy(Qt::NoFocus);
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: on_backButtonSum_clicked
- * Purpose : Returns the user to the main window after
- *           viewing the trip summary.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void summaryWindow::on_backButtonSum_clicked()
 {
     MainWindow *mainWin = new MainWindow(nullptr);

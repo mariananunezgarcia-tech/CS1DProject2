@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1163</width>
+    <height>716</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QComboBox" name="dropdownSouvenirPreview">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>190</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>Select an MLB Team</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="buttonSouvenirPreview">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>191</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonSouvenirCancel">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>580</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="distanceListView">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>30</y>
+      <width>671</width>
+      <height>581</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ffffff;
+    alternate-background-color: #ffffff;
+    color: black;
+    border: 2px solid #fdbe57;
+    border-radius: 0px;
+    padding: 2px 2px;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonDistancesSubmit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>191</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="dropdownDistances">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>190</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>Select an MLB Team</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="labelTrip">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>30</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Plan a Trip:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonBasicTrip">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>60</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>From Marlins Park</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonCustomTrip">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>110</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Custom Trip</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>580</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back to Login</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSouvenirs">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Select a MLB Team to Display Souvenirs</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelDistances">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Display Distances from a MLB Team:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ClosestCenterField">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>572</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Closest Center Field</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByName">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>284</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Name</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByStadium">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>316</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Stadium</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByAL">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>348</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By AL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByNL">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>380</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By NL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByTypology">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>412</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Typology</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByOpenRoof">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>444</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Open Roof</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="DisplayAll">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>252</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort All Information</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByNewest">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>476</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Oldest Stadium</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SortByCapacity">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>508</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort By Capacity</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="FurthestCenterField">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>540</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Furthest Center Field</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonSpecAlgorithms">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>260</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Special Algorithms</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonDijkstraTrip">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>210</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>From Dodgers Stadium</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonCustomOrderTrip">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>160</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Custom Order Trip</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buttonInfoSubmit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>191</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelInfo">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Display Information from a MLB Team:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="dropdownInformation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>190</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>Select an MLB Team</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1163</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonSouvenirPreview</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>previewSouvenirButtonClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>48</x>
+     <y>147</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSouvenirCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>cancelButtonClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>previewSouvenirButtonClick()</slot>
+  <slot>cancelButtonClick()</slot>
+ </slots>
+</ui>

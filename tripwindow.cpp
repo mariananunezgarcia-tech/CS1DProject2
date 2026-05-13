@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "tripwindow.h"
 #include "ui_tripwindow.h"
 
@@ -21,70 +20,13 @@ tripWindow::tripWindow(const QString &startStadium,
     , m_forceExact(forceExact)
 {
     this->type = type;
-=======
-/**
- * @file tripwindow.cpp
- * @brief Implements the tripWindow class.
- *
- * This window calculates and simulates the campus trip route,
- * tracks purchased souvenirs, and updates the user interface
- * as the user progresses through the trip.
- */
-
-#include "tripwindow.h"
-#include "ui_tripwindow.h"
-
-#include "summarywindow.h"
-
-#include <QCoreApplication>
-#include <QDir>
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QPushButton>
-#include <QLabel>
-#include <QTableWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QAbstractItemView>
-#include <QIntValidator>
-
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QDebug>
-
-static constexpr double BIG = 1e18;
-
-/*
- * Function: tripWindow constructor
- * Purpose : Initializes the trip window, loads route data,
- *           and prepares the trip simulation UI.
- */
-tripWindow::tripWindow(const QString &startCampus,
-                       const QStringList &campuses,
-                       int maxStops,
-                       bool forceExact,
-                       QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::tripWindow)
-    , m_start(norm(startCampus))
-    , m_maxStops(maxStops + 1)
-    , m_forceExact(forceExact)
-{
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     ui->setupUi(this);
     setWindowTitle("Trip Planner");
 
     m_goNextBtn = ui->buttNextSum;
     if (m_goNextBtn)
     {
-<<<<<<< HEAD
         m_goNextBtn->setText("Go to Next Stadium");
-=======
-        m_goNextBtn->setText("Go to Next College");
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
         connect(m_goNextBtn, &QPushButton::clicked, this, &tripWindow::onGoNextClicked);
     }
 
@@ -92,14 +34,9 @@ tripWindow::tripWindow(const QString &startCampus,
     if (m_buyBtn)
         connect(m_buyBtn, &QPushButton::clicked, this, &tripWindow::onBuyClicked);
 
-<<<<<<< HEAD
     // Build unique candidate list
     QSet<QString> seen;
     for (const QString &c : stadiums)
-=======
-    QSet<QString> seen;
-    for (const QString &c : campuses)
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     {
         const QString n = norm(c);
         if (!n.isEmpty() && !seen.contains(n))
@@ -125,7 +62,6 @@ tripWindow::tripWindow(const QString &startCampus,
     if (!ensureDbOpen())
     {
         QMessageBox::warning(this, "Database Error",
-<<<<<<< HEAD
                              "Could not open BaseballDatabase.sqlite.\n"
                              "Distances and souvenirs may be unavailable.");
     }
@@ -134,19 +70,10 @@ tripWindow::tripWindow(const QString &startCampus,
     loadAllDistances();
 
     /*
-=======
-                             "Could not open college_tour.sqlite.\n"
-                             "Distances and souvenirs may be unavailable.");
-    }
-
-    loadAllDistances();
-
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     if (m_forceExact || m_maxStops == static_cast<int>(m_candidates.size()))
         planExactDp();
     else
         planNearestNeighbor();
-<<<<<<< HEAD
     */
 
     if (m_forceExact)
@@ -160,43 +87,16 @@ tripWindow::tripWindow(const QString &startCampus,
     refreshUi();
 }
 
-=======
-
-    buildStepQueue();
-    populateRouteList();
-    refreshUi();
-}
-
-/*
- * Function: ~tripWindow
- * Purpose : Cleans up UI resources when the trip window closes.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 tripWindow::~tripWindow()
 {
     delete ui;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: norm
- * Purpose : Normalizes text by trimming whitespace.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 QString tripWindow::norm(const QString &s)
 {
     return s.trimmed();
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: setReadOnly
- * Purpose : Makes a line edit display-only so the user
- *           cannot edit calculated values.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::setReadOnly(QLineEdit *edit)
 {
     if (!edit)
@@ -206,14 +106,6 @@ void tripWindow::setReadOnly(QLineEdit *edit)
     edit->setFocusPolicy(Qt::NoFocus);
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: ensureDbOpen
- * Purpose : Opens the SQLite database connection used
- *           by the trip window.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 bool tripWindow::ensureDbOpen()
 {
     const QString connName = "tripwindow_connection";
@@ -237,20 +129,12 @@ bool tripWindow::ensureDbOpen()
     QDir d(exeDir);
     for (int i = 0; i < 6; ++i)
     {
-<<<<<<< HEAD
         candidates << d.filePath("BaseballDatabase.sqlite");
-=======
-        candidates << d.filePath("college_tour.sqlite");
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
         if (!d.cdUp())
             break;
     }
 
-<<<<<<< HEAD
     candidates << QDir::current().filePath("BaseballDatabase.sqlite");
-=======
-    candidates << QDir::current().filePath("college_tour.sqlite");
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
     QString dbPath;
     for (const QString &p : candidates)
@@ -277,14 +161,6 @@ bool tripWindow::ensureDbOpen()
     return true;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: loadAllDistances
- * Purpose : Loads all campus-to-campus distances into memory
- *           for route planning.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::loadAllDistances()
 {
     m_dist.clear();
@@ -295,13 +171,8 @@ void tripWindow::loadAllDistances()
 
     QSqlQuery q(db);
     if (!q.exec(R"(
-<<<<<<< HEAD
         SELECT "Beginning Stadium", "Ending Stadium", "Distance"
         FROM MLBDistances
-=======
-        SELECT TRIM(from_campus), TRIM(to_campus), miles
-        FROM distances
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     )"))
     {
         QMessageBox::warning(this, "Distance Query Error",
@@ -323,14 +194,6 @@ void tripWindow::loadAllDistances()
     }
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: dist
- * Purpose : Returns the distance between two campuses
- *           from the in-memory distance map.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 double tripWindow::dist(const QString &a, const QString &b) const
 {
     const QString na = norm(a);
@@ -345,7 +208,6 @@ double tripWindow::dist(const QString &a, const QString &b) const
     return BIG;
 }
 
-<<<<<<< HEAD
 void tripWindow::buildRuntimeUi()
 {
     if (ui->stadiumDisplay)
@@ -353,20 +215,6 @@ void tripWindow::buildRuntimeUi()
 
     const QRect listRect = ui->stadiumDisplay
                                ? ui->stadiumDisplay->geometry()
-=======
-/*
- * Function: buildRuntimeUi
- * Purpose : Connects runtime UI widgets used to display
- *           trip progress and souvenir information.
- */
-void tripWindow::buildRuntimeUi()
-{
-    if (ui->collegeDisplay)
-        ui->collegeDisplay->hide();
-
-    const QRect listRect = ui->collegeDisplay
-                               ? ui->collegeDisplay->geometry()
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
                                : QRect(430, 70, 471, 271);
 
     m_routeList = new QListWidget(this);
@@ -410,13 +258,6 @@ void tripWindow::buildRuntimeUi()
     }
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: populateRouteList
- * Purpose : Displays the planned route in the route list widget.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::populateRouteList()
 {
     if (!m_routeList)
@@ -424,7 +265,6 @@ void tripWindow::populateRouteList()
 
     m_routeList->clear();
 
-<<<<<<< HEAD
     int visibleNumber = 0;
 
     for (size_t i = 0; i < m_route.size(); ++i)
@@ -448,28 +288,11 @@ void tripWindow::populateRouteList()
     }
 }
 
-=======
-    for (size_t i = 0; i < m_route.size(); ++i)
-    {
-        if (i == 0)
-            m_routeList->addItem(QString("Start: %1").arg(m_route[i]));
-        else
-            m_routeList->addItem(QString("%1) %2").arg(static_cast<int>(i)).arg(m_route[i]));
-    }
-}
-
-/*
- * Function: buildStepQueue
- * Purpose : Converts the route into a queue of upcoming
- *           trip steps.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::buildStepQueue()
 {
     while (!m_stepQueue.empty())
         m_stepQueue.pop();
 
-<<<<<<< HEAD
     double hiddenDistanceTotal = 0.0;
 
     for (size_t i = 1; i < m_route.size(); ++i)
@@ -492,20 +315,6 @@ void tripWindow::buildStepQueue()
     }
 }
 
-=======
-    for (size_t i = 1; i < m_route.size(); ++i)
-    {
-        const QString nextCampus = m_route[i];
-        const double leg = (i - 1 < m_legs.size()) ? m_legs[i - 1] : 0.0;
-        m_stepQueue.push(std::make_pair(nextCampus, leg));
-    }
-}
-
-/*
- * Function: planNearestNeighbor
- * Purpose : Builds a route using the nearest-neighbor algorithm.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::planNearestNeighbor()
 {
     m_route.clear();
@@ -518,7 +327,6 @@ void tripWindow::planNearestNeighbor()
     m_route.push_back(m_start);
     visited.insert(m_start);
 
-<<<<<<< HEAD
     if(type=="default")
     {
         nearestStepRecursive(m_start, visited);
@@ -536,26 +344,12 @@ void tripWindow::planNearestNeighbor()
     }
 }
 
-=======
-    nearestStepRecursive(m_start, visited);
-}
-
-/*
- * Function: nearestStepRecursive
- * Purpose : Recursively selects the nearest unvisited campus
- *           until the route reaches the stop limit.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::nearestStepRecursive(const QString &current, QSet<QString> &visited)
 {
     if (static_cast<int>(m_route.size()) >= m_maxStops)
         return;
 
-<<<<<<< HEAD
     QString bestStadium;
-=======
-    QString bestCampus;
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
     double bestDist = BIG;
 
     for (const QString &candidate : m_candidates)
@@ -567,7 +361,6 @@ void tripWindow::nearestStepRecursive(const QString &current, QSet<QString> &vis
         if (d < bestDist)
         {
             bestDist = d;
-<<<<<<< HEAD
             bestStadium = candidate;
         }
     }
@@ -787,27 +580,6 @@ void tripWindow::customOrderStep(const QString &current, QSet<QString> &visited,
 }
 
 
-=======
-            bestCampus = candidate;
-        }
-    }
-
-    if (bestCampus.isEmpty() || bestDist >= BIG)
-        return;
-
-    visited.insert(bestCampus);
-    m_route.push_back(bestCampus);
-    m_legs.push_back(bestDist);
-
-    nearestStepRecursive(bestCampus, visited);
-}
-
-/*
- * Function: tspRecursive
- * Purpose : Recursive helper for the exact dynamic programming
- *           route calculation.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 double tripWindow::tspRecursive(int mask, int last)
 {
     if (mask == m_allMask)
@@ -842,14 +614,6 @@ double tripWindow::tspRecursive(int mask, int last)
     return memo;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: planExactDp
- * Purpose : Builds the most efficient route using
- *           dynamic programming.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::planExactDp()
 {
     m_route.clear();
@@ -924,16 +688,7 @@ void tripWindow::planExactDp()
     }
 }
 
-<<<<<<< HEAD
 void tripWindow::loadSouvenirsForCurrentStadium()
-=======
-/*
- * Function: loadSouvenirsForCurrentCollege
- * Purpose : Loads the currently available souvenirs for
- *           the campus the user is visiting.
- */
-void tripWindow::loadSouvenirsForCurrentCollege()
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 {
     if (!m_souvTable)
         return;
@@ -948,7 +703,6 @@ void tripWindow::loadSouvenirsForCurrentCollege()
     if (!db.isOpen())
         return;
 
-<<<<<<< HEAD
     const QString stadium = norm(m_route[static_cast<size_t>(m_index)]);
 
     QSqlQuery q(db);
@@ -960,23 +714,6 @@ void tripWindow::loadSouvenirsForCurrentCollege()
         WHERE "Stadium" = :Stadium
     )");
     q.bindValue(":Stadium", stadium);
-=======
-    const QString campus = norm(m_route[static_cast<size_t>(m_index)]);
-
-    QSqlQuery q(db);
-    q.prepare(R"(
-        SELECT TRIM(s.item), s.price
-        FROM souvenirs s
-        LEFT JOIN souvenir_access sa
-          ON TRIM(sa.campus) = TRIM(s.campus)
-         AND TRIM(sa.item)   = TRIM(s.item)
-        WHERE TRIM(s.campus) = :campus
-          AND (sa.enabled = 1 OR sa.enabled IS NULL)
-          AND TRIM(s.item) <> ''
-        ORDER BY TRIM(s.item) ASC
-    )");
-    q.bindValue(":campus", campus);
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
     if (!q.exec())
         return;
@@ -1017,14 +754,6 @@ void tripWindow::loadSouvenirsForCurrentCollege()
     }
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: updateSouvenirTotals
- * Purpose : Updates the total number and total cost of
- *           purchased souvenirs shown in the UI.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::updateSouvenirTotals()
 {
     if (m_souvenirCount)
@@ -1034,14 +763,6 @@ void tripWindow::updateSouvenirTotals()
         m_souvenirCost->setText(QString("$%1").arg(m_totalSouvenirCost, 0, 'f', 2));
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: clearSouvenirChecks
- * Purpose : Clears all selected souvenir checkboxes and
- *           resets quantities back to 1.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::clearSouvenirChecks()
 {
     if (!m_souvTable)
@@ -1060,14 +781,6 @@ void tripWindow::clearSouvenirChecks()
     }
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: refreshUi
- * Purpose : Updates the current campus, next campus,
- *           total distance, and souvenir displays.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::refreshUi()
 {
     if (!m_currentEdit || !m_totalEdit || !m_nextEdit || !m_nextDistEdit)
@@ -1078,7 +791,6 @@ void tripWindow::refreshUi()
 
     m_currentEdit->setText(m_route[static_cast<size_t>(m_index)]);
     m_totalEdit->setText(QString::number(m_traveled, 'f', 1));
-<<<<<<< HEAD
     ui->lineDistTrav_2->setText(QString::number(totalDist, 'f', 1));
 
     updateSouvenirTotals();
@@ -1102,34 +814,6 @@ void tripWindow::refreshUi()
     }
 }
 
-=======
-
-    updateSouvenirTotals();
-    loadSouvenirsForCurrentCollege();
-
-    if (!m_stepQueue.empty())
-    {
-        const auto &front = m_stepQueue.front();
-        m_nextEdit->setText(front.first);
-        m_nextDistEdit->setText(QString::number(front.second, 'f', 1));
-        if (m_goNextBtn)
-            m_goNextBtn->setText("Go to Next College");
-    }
-    else
-    {
-        m_nextEdit->setText("N/A");
-        m_nextDistEdit->setText("0.0");
-        if (m_goNextBtn)
-            m_goNextBtn->setText("Finish Tour");
-    }
-}
-
-/*
- * Function: onBuyClicked
- * Purpose : Records souvenir purchases selected by the user
- *           at the current campus and updates totals.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::onBuyClicked()
 {
     if (!m_souvTable)
@@ -1138,11 +822,7 @@ void tripWindow::onBuyClicked()
     if (m_index < 0 || m_index >= static_cast<int>(m_route.size()))
         return;
 
-<<<<<<< HEAD
     const QString currentStadium = norm(m_route[static_cast<size_t>(m_index)]);
-=======
-    const QString currentCollege = norm(m_route[static_cast<size_t>(m_index)]);
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 
     int boughtThisClick = 0;
     double costThisClick = 0.0;
@@ -1171,17 +851,10 @@ void tripWindow::onBuyClicked()
         for (int i = 0; i < quantity; ++i)
         {
             Souvenir s;
-<<<<<<< HEAD
             s.stadium = currentStadium;
             s.name = souvenirName;
             s.price = price;
             s.quantity = 1;   // each queue entry still represents one purchased copy
-=======
-            s.college = currentCollege;
-            s.name = souvenirName;
-            s.price = price;
-            s.quantity = 1;
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
             m_purchasedSouvenirs.push(s);
         }
 
@@ -1203,14 +876,6 @@ void tripWindow::onBuyClicked()
     clearSouvenirChecks();
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Function: onGoNextClicked
- * Purpose : Moves to the next campus in the trip or opens
- *           the summary window when the trip is complete.
- */
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
 void tripWindow::onGoNextClicked()
 {
     if (!m_stepQueue.empty())
@@ -1218,7 +883,6 @@ void tripWindow::onGoNextClicked()
         const auto nextStep = m_stepQueue.front();
         m_stepQueue.pop();
 
-<<<<<<< HEAD
         const QString nextVisibleStadium = norm(nextStep.first);
 
         // Move m_index forward until it reaches the visible stadium.
@@ -1231,9 +895,6 @@ void tripWindow::onGoNextClicked()
             }
         }
 
-=======
-        ++m_index;
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
         m_traveled += nextStep.second;
 
         refreshUi();
@@ -1249,11 +910,7 @@ void tripWindow::onGoNextClicked()
         copy.pop();
 
         summaryWindow::PurchasedSouvenir out;
-<<<<<<< HEAD
         out.stadium = s.stadium;
-=======
-        out.college = s.college;
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
         out.name = s.name;
         out.price = s.price;
         purchasesForSummary.push_back(out);
@@ -1265,7 +922,6 @@ void tripWindow::onGoNextClicked()
 
     accept();
 }
-<<<<<<< HEAD
 
 void tripWindow::loadVisibleStadiums()
 {
@@ -1308,5 +964,3 @@ bool tripWindow::isVisibleStadium(const QString &stadium) const
 
     return m_visibleStadiums.contains(s);
 }
-=======
->>>>>>> f8aaa0a89393c209bbee31fe8a23ac118f91f9de
